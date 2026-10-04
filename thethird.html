@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Third Page</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      background-color: #4CAF50;
+      font-family: Arial, sans-serif;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .big-btn {
+      display: inline-block;
+      font-size: 40px;
+      padding: 25px 60px;
+      background-color: #1B5E20;
+      color: white;
+      text-decoration: none;
+      border: 4px solid white;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    .big-btn:hover {
+      background-color: #026618;
+    }
+
+    /* Message area: fills the space under the buttons and centers the letter */
+    .message {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    .letter {
+      width: 100%;
+      max-width: 700px;
+      color: white;
+    }
+
+    .letter h1 {
+      font-size: 72px;
+      text-align: center;
+      margin: 0 0 20px;
+    }
+
+    .letter p {
+      font-size: 20px;
+      line-height: 1.8;
+      text-align: justify;
+      margin: 0 0 20px;
+    }
+
+    .signature {
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <audio id="music" src="one.mp3" loop preload="auto"></audio>
+
+  <div class="buttons">
+    <a href="thesecond.html" class="big-btn">Return</a>
+    <button type="button" id="musicBtn" class="big-btn">▶ Play Music</button>
+  </div>
+
+  <div class="message">
+    <div class="letter">
+      <h1>Hi Ma!</h1>
+
+      <p>
+        Happy Teacher's Day, Ma, kahit retired ka na. Dahil sa'yo, thank you for
+        giving me a chance to live in this beautiful world. Thank you for being
+        kind to us kahit na lagi mo kaming pinapagalitan. Thank you dahil
+        hinahatid mo kami sa school, binibili mo ang gusto namin, at hindi mo
+        kami pinapabayaan. Happy Teacher's Day, Ma. Love you!
+      </p>
+
+      <p class="signature">
+        From: Sajj<br>
+        To: Mama
+      </p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const music = document.getElementById("music");
+      const musicBtn = document.getElementById("musicBtn");
+
+      if (!music || !musicBtn) {
+        console.error("Missing element: check id=\"music\" and id=\"musicBtn\"");
+        return;
+      }
+
+      const PLAY_TEXT = "▶ Play Music";
+      const PAUSE_TEXT = "⏸ Pause Music";
+      const ERROR_TEXT = "⚠ Song not found";
+
+      musicBtn.addEventListener("click", function () {
+        if (music.paused) {
+          music.play().catch(function (err) {
+            console.error("Play failed:", err);
+            musicBtn.textContent = ERROR_TEXT;
+          });
+        } else {
+          music.pause();
+        }
+      });
+
+      music.addEventListener("play", function () {
+        musicBtn.textContent = PAUSE_TEXT;
+      });
+
+      music.addEventListener("pause", function () {
+        musicBtn.textContent = PLAY_TEXT;
+      });
+
+      music.addEventListener("error", function () {
+        console.error("Audio error: check the filename in src");
+        musicBtn.textContent = ERROR_TEXT;
+      });
+    });
+  </script>
+</body>
+</html>
